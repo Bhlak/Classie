@@ -4,7 +4,7 @@ from django.contrib.auth.hashers import make_password, check_password
 class Student(models.Model):
     full_name = models.CharField(max_length=45)
     email = models.EmailField()
-    password = make_password(models.CharField(max_length=10))
+    password = models.CharField(max_length=10)
 
     def checker(self):
         test = input("Input: ")
@@ -13,10 +13,9 @@ class Student(models.Model):
 class Lecturer(models.Model):
     full_name = models.CharField(max_length=100)
     title = models.CharField(max_length=15)
-    email = models.EmailField()
-    faculty = models.CharField(max_length=100)
-    department = models.CharField(max_length=100)
-    year = models.IntegerField()
-    course_title = models.CharField(max_length=100)
-    course_code = models.CharField(max_length=100)
+    lecID = models.CharField(max_length=10)
+    email = models.EmailField(unique=True)
+    passwordd = models.CharField(max_length=100)
     
+    def __str__(self):
+        return self.email
