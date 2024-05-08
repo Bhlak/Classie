@@ -1,5 +1,14 @@
+from django.contrib import admin
 from django.urls import path
-from .views import RegisterAPIView
+from . import views
+from rest_framework import routers
+from signup.views import RegisterAPIView 
 
-urlpatterns = [
-    path('lecturersignup/', RegisterAPIView.as_view(), name='lecturersignup'),]
+router = routers.DefaultRouter()
+
+urlpatterns = router.urls
+
+urlpatterns += [
+    path('studentsignup/', views.SignUpView.as_view()),
+    path('lecturersignup/', RegisterAPIView.as_view(), name='lecturersignup')
+]

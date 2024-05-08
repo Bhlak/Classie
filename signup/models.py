@@ -1,5 +1,4 @@
 from django.db import models
-from django.contrib.auth.hashers import make_password, check_password
 
 class Student(models.Model):
     full_name = models.CharField(max_length=45)
@@ -16,6 +15,3 @@ class Lecturer(models.Model):
     lecID = models.CharField(max_length=10)
     email = models.EmailField(unique=True)
     passwordd = models.CharField(max_length=100)
-    
-    def __str__(self):
-        return self.email
