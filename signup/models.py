@@ -1,14 +1,14 @@
 from django.db import models
-from django.contrib.auth.hashers import make_password, check_password
 
 class Student(models.Model):
     full_name = models.CharField(max_length=45)
     email = models.EmailField()
-    password = make_password(models.CharField(max_length=10))
-
-    def checker(self):
-        test = input("Input: ")
-        return True and check_password(test, self.password)
+    password = models.CharField(max_length=10)
+    # matric_no = models.CharField(max_length=10)
+    # faculty = models.CharField(max_length=15)
+    # department = models.CharField(max_length=20)
+    # level = models.IntegerField()
+    # user_type = models.CharField(max_length=10, default="student")
     
 class Lecturer(models.Model):
     full_name = models.CharField(max_length=100)
