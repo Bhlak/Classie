@@ -1,6 +1,5 @@
 import json
 from rest_framework import status
-from rest_framework.parsers import JSONParser
 from rest_framework.views import APIView
 from .models import Student
 from .serializers import StudentSerializer
@@ -23,6 +22,25 @@ class SignUpView(APIView):
             if serializer.is_valid(raise_exception=True):
                 serializer.save()
                 return Response(serializer.data, status=status.HTTP_200_OK)
+        except Exception as e:
+            print(e)
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request, format=None):
+        try:
+            dat = request.data
+            res = Student.objects.get(id__exact=dat['id'])
+            serializer = StudentSerializer(res, data=dat)
+
+            print(res.__dict__)
+
+            if serializer.is_valid(raise_exception=True):
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_200_OK)
+            else:
+                print("nah")
+                return Response(status=status.HTTP_400_BAD_REQUEST)
+
         except Exception as e:
             print(e)
             return Response(status=status.HTTP_400_BAD_REQUEST)

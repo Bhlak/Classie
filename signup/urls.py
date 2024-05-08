@@ -8,6 +8,5 @@ router = routers.DefaultRouter()
 urlpatterns = router.urls
 
 urlpatterns += [
-    path('admin/', admin.site.urls),
-    path('signup/', views.SignUpView.as_view())
+    path('studentsignup/', views.SignUpView.as_view())
 ]
