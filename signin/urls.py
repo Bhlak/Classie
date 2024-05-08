@@ -6,7 +6,6 @@ router = routers.DefaultRouter()
 
 urlpatterns = router.urls
 
-urlpatterns += [
-    path('student/', views.SignUpView.as_view()),
-    path('lecturer/', views.LecturerView.as_view())
-]
+# urlpatterns += [
+#     path('student/', )
+# ]
