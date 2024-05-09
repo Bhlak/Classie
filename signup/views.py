@@ -4,7 +4,7 @@ from rest_framework.views import APIView
 from .models import Student
 from .serializers import StudentSerializer
 from rest_framework.response import Response
-from django.contrib import messages
+from django.contrib.auth.hashers import make_password
 from .models import Lecturer
 
 
@@ -64,11 +64,16 @@ class RegisterAPIView(APIView):
         lecid = data["lecID"]
         password1 = data["password1"]
         password2 = data["password2"]
-
+        hashedpassword = make_password(password1)
         if password1 == password2:
             if Lecturer.objects.filter(lecID=lecid).exists():
                 return Response({'error': 'ID exists'}, status=status.HTTP_400_BAD_REQUEST)
             elif Lecturer.objects.filter(email=email).exists():
                 return Response({'error': 'Email Taken'}, status=status.HTTP_400_BAD_REQUEST)
             else:
-                user = Lecturer.objects()
+                lec = Lecturer.objects.create(email=email, lecID=lecid, password=hashedpassword)
+                lec.save()
+                return Response({'message': data}, status=status.HTTP_201_CREATED)
+        else:
+            return Response({'error': 'Passwords do not match.'}, status=status.HTTP_400_BAD_REQUEST)
+
