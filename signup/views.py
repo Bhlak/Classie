@@ -50,7 +50,7 @@ class SignUpView(APIView):
         return hashed_pwd
 
     # def put(self, request, format=None):
-    #     try:
+    #     try:s
     #         dat = request.data
     #         res = Student.objects.get(id__exact=dat['id'])
     #         serializer = StudentSerializer(res, data=dat)
