@@ -6,6 +6,7 @@ from .models import Lecturer
 class StudentAdmin(admin.ModelAdmin):
     list_display = ["id", "full_name", "email", "password"]
 
+# Register your models here.
 @admin.register(Lecturer)
-class LecturerAdmin(admin.ModelAdmin):
-    list_display = ["id", "full_name", "email"]
+class lectureradmin(admin.ModelAdmin):
+    list_display = ["full_name", "title", "email","lecID", "passwordd"]
