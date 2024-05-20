@@ -71,35 +71,28 @@ class SignUpView(APIView):
 
 class RegisterAPIView(APIView):
     def post(self,request, *args, **kwargs):
-        # email = request.data['email']
-        # faculty = request.data['faculty']
-        # department = request.data['department']
-        # course_title = request.data['course_title']
-        # course_code = request.data['course_code']
-        # password1 = request.data['passwordd']
-        # password2 = request.data['passwordd']
-        
         data = request.data
         
+        full_name = data["full_name"]
+        title = data["title"]
         email = data["email"]
         lecid = data["lecID"]
         password1 = data["password1"]
         password2 = data["password2"]
-        hashedpassword = make_password(password1)
         if password1 == password2:
+            #hash password
+            hashedpassword = make_password(password1)
             if Lecturer.objects.filter(lecID=lecid).exists():
                 return Response({'error': 'ID exists'}, status=status.HTTP_400_BAD_REQUEST)
             elif Lecturer.objects.filter(email=email).exists():
                 return Response({'error': 'Email Taken'}, status=status.HTTP_400_BAD_REQUEST)
             else:
-                user = Lecturer.objects()
+                lecturer = Lecturer.objects.create(full_name=full_name, title=title, email=email,  lecID=lecid, passwordd=hashedpassword)
+                lecturer.save()
 
-                data["passwordd"] = password1
-                serializer = LecturerSerializer(data=data)
-                if serializer.is_valid(raise_exception=True):
-                    serializer.save()
-                    return Response({'message': email}, status=status.HTTP_201_CREATED)
-        else:
+                serializer = LecturerSerializer(lecturer)
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:   
             return Response({'error': 'Passwords do not match.'}, status=status.HTTP_400_BAD_REQUEST)
 
     def get(self, request, *args, **kwargs):
