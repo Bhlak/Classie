@@ -1,11 +1,11 @@
-from django.urls import path
-from . import views
-from rest_framework import routers
+# from django.urls import path
+# from . import views
+# from rest_framework import routers
 
-router = routers.DefaultRouter()
+# router = routers.DefaultRouter()
 
-urlpatterns = router.urls
+# urlpatterns = router.urls
 
 # urlpatterns += [
-#     path('student/', )
+#     path('student/', views.StudentLogin.as_view())
 # ]

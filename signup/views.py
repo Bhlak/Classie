@@ -1,43 +1,57 @@
-import json
 from rest_framework import status
 from rest_framework.views import APIView
-from .models import Student, Lecturer
-from .serializers import StudentSerializer, LecturerSerializer
+from .models import Student, CustomUser
+# , Lecturer
+from .serializers import StudentSerializer, CustomUserSerializer
+# , LecturerSerializer
 from rest_framework.response import Response
-from django.contrib import messages
-from .models import Lecturer
 from django.contrib.auth.hashers import make_password
-from django.contrib.auth.models import User
 
 
 class SignUpView(APIView):
     def get(self, request, format=None):
         
-        queryset = Student.objects.all()
+        queryset = CustomUser.objects.all()
         
-        serializer = StudentSerializer(queryset, many=True)
+        serializer = CustomUserSerializer(queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
     
     def post(self, request, format=None):
         try:
             data = request.data
 
-            # Check if email has been used before
-            email = data["email"]
-            matric = data["matric_no"]
+            data1 = {"password": data["password"], "email": data["email"], "full_name": data["full_name"]}
 
-            if Student.objects.filter(email__exact=email).exists():
+            data2 = {"matric_no": data["matric_no"], "faculty": data["faculty"], "department": data["department"], "level": data["level"]}
+
+            # Check if email has been used before
+            email = data1["email"]
+            matric = data2["matric_no"]
+
+
+            if CustomUser.objects.filter(email__exact=email).exists():
                 return Response("Email already in use", status=status.HTTP_400_BAD_REQUEST)
             elif Student.objects.filter(matric_no__exact=matric).exists():
                 return Response("Matric Number already registered", status=status.HTTP_400_BAD_REQUEST)
             else:
                 # Hash the raw password
-                raw_pwd = data['password']
-                data['password'] = self.password_hash(raw_pwd)
-
-                serializer = StudentSerializer(data=data)
+                raw_pwd = data1['password']
+                data1['password'] = self.password_hash(raw_pwd)
+                serializer = CustomUserSerializer(data=data)
                 if serializer.is_valid(raise_exception=True):
                     serializer.save()
+                    # if data['type'].lower() == "student":
+                    #    data2['user'] = serializer.data
+                    #    user = data2['user']
+                    #    level = data2['level']
+                    #    depart = data2['department']
+                    #    faculty = data2['faculty']
+                    #    matric = data2['matric_no']
+
+                    #    studSer = Student.objects.create(user=user, level=level, department=depart, faculty=faculty, matric_no=matric)
+                    #    studSer.save()
+                    # elif data['type'] == "Lecturer":
+                    #     Lecturer.objects.create(instance)
                     return Response(serializer.data, status=status.HTTP_200_OK)
         except Exception as e:
             return Response(e, status=status.HTTP_400_BAD_REQUEST)
@@ -69,40 +83,40 @@ class SignUpView(APIView):
     #         print(e)
     #         return Response(status=status.HTTP_400_BAD_REQUEST)
 
-class RegisterAPIView(APIView):
-    def post(self,request, *args, **kwargs):
-        # email = request.data['email']
-        # faculty = request.data['faculty']
-        # department = request.data['department']
-        # course_title = request.data['course_title']
-        # course_code = request.data['course_code']
-        # password1 = request.data['passwordd']
-        # password2 = request.data['passwordd']
+# # class RegisterAPIView(APIView):
+# #     def post(self,request, *args, **kwargs):
+# #         # email = request.data['email']
+# #         # faculty = request.data['faculty']
+# #         # department = request.data['department']
+# #         # course_title = request.data['course_title']
+# #         # course_code = request.data['course_code']
+# #         # password1 = request.data['passwordd']
+# #         # password2 = request.data['passwordd']
         
-        data = request.data
+# #         data = request.data
         
-        email = data["email"]
-        lecid = data["lecID"]
-        password1 = data["password1"]
-        password2 = data["password2"]
+# #         email = data["email"]
+# #         lecid = data["lecID"]
+# #         password1 = data["password1"]
+# #         password2 = data["password2"]
 
-        if password1 == password2:
-            if Lecturer.objects.filter(lecID=lecid).exists():
-                return Response({'error': 'ID exists'}, status=status.HTTP_400_BAD_REQUEST)
-            elif Lecturer.objects.filter(email=email).exists():
-                return Response({'error': 'Email Taken'}, status=status.HTTP_400_BAD_REQUEST)
-            else:
-                user = Lecturer.objects()
+# #         if password1 == password2:
+# #             if Lecturer.objects.filter(lecID=lecid).exists():
+# #                 return Response({'error': 'ID exists'}, status=status.HTTP_400_BAD_REQUEST)
+# #             elif Lecturer.objects.filter(email=email).exists():
+# #                 return Response({'error': 'Email Taken'}, status=status.HTTP_400_BAD_REQUEST)
+# #             else:
+# #                 user = Lecturer.objects()
 
-                data["passwordd"] = password1
-                serializer = LecturerSerializer(data=data)
-                if serializer.is_valid(raise_exception=True):
-                    serializer.save()
-                    return Response({'message': email}, status=status.HTTP_201_CREATED)
-        else:
-            return Response({'message': 'Passwords do not match.'}, status=status.HTTP_400_BAD_REQUEST)
+# #                 data["passwordd"] = password1
+# #                 serializer = LecturerSerializer(data=data)
+# #                 if serializer.is_valid(raise_exception=True):
+# #                     serializer.save()
+# #                     return Response({'message': email}, status=status.HTTP_201_CREATED)
+# #         else:
+# #             return Response({'message': 'Passwords do not match.'}, status=status.HTTP_400_BAD_REQUEST)
 
-    def get(self, request, *args, **kwargs):
-        lecturers = Lecturer.objects.all() 
-        serializer = LecturerSerializer(lecturers, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+# #     def get(self, request, *args, **kwargs):
+# #         lecturers = Lecturer.objects.all() 
+# #         serializer = LecturerSerializer(lecturers, many=True)
+# #         return Response(serializer.data, status=status.HTTP_200_OK)

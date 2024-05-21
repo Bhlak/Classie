@@ -1,10 +1,8 @@
 from django.contrib import admin
-from django.urls import path, include
-from signup.views import RegisterAPIView 
+from django.urls import path, include 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('signup/', include('signup.urls')),
-    path('signin/', include('signin.urls'))
-    path('lecturersignup/', RegisterAPIView.as_view(), name='lecturersignup')
+    # path('login/', include('signin.urls'))
 ]
