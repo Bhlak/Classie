@@ -1,40 +1,40 @@
-# from rest_framework.views import APIView
-# from rest_framework import status
-# from rest_framework.response import Response
-# from django.contrib.auth.hashers import check_password
-# from signup.serializers import StudentSerializer
-# from signup.models import Student
+from django.contrib.auth import logout
+from rest_framework import status
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from .serializers import LoginSerializer
+from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.authtoken.models import Token
+from signup.serializers import CustomUserSerializer
+from django.forms.models import model_to_dict
 
-# # Create your views here.
-# class StudentLogin(APIView):
-#     def get(self, request, format=None):
+class StudentLogin(APIView):    
+    permission_classes = (AllowAny, )
+    def post(self, request, format=None):
+
+        if request.user.is_authenticated:
+            return Response("User already authenticated", status=status.HTTP_200_OK)
         
-#         queryset = Student.objects.all()
-#         serializer = StudentSerializer(queryset, many=True)
+        data = request.data
 
-#         return Response(serializer.data, status=status.HTTP_200_OK)
+        serializer = LoginSerializer(data=data)
+        serializer.is_valid(raise_exception=True)
+        user = serializer.validated_data["user"]
+        token, created = Token.objects.get_or_create(user=user)
 
-
-#     def post(self, request, format=None):
-#         data = request.data
+        return Response({"token": token.key}, status=status.HTTP_200_OK)
         
-#         matric = data["matric_no"]
-#         password = data["password"]
 
-#         if not Student.objects.filter(matric_no__exact=matric).exists():
-#             return Response("Invalid Matric Number", status=status.HTTP_400_BAD_REQUEST)
-#         else:
-#             student = Student.objects.filter(matric_no__exact=matric)
-#             serializer = StudentSerializer(student)
+class Logout(APIView):
+    permission_classes = (AllowAny,)
+    def get(self, request, format=None):
+        logout(request)
+        return Response({"message": "User logged out"})
 
-#             if serializer.is_valid(raise_exception=True):
-#                 studentData = serializer.data
-#                 if check_password(studentData["password"]) == password:
-#                     return Response("Works")
-#                 else:
-#                     return Response("Invalid password")
-
-#     def check_password(self, hashed):
-#         revealed = check_password(hashed)
-#         return revealed
-
+class Tester(APIView):
+    permission_classes = (IsAuthenticated, )
+    def get(self, request, format=None):
+        # serializer = CustomUserSerializer(data=request.user )
+        # if serializer.is_valid(raise_exception=True):
+        #     serializer.save()
+        return Response({"res": model_to_dict(request.user)}['res']['full_name'])

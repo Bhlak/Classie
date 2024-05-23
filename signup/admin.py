@@ -1,6 +1,5 @@
 from django.contrib import admin
-from .models import Student
-# from .models import Lecturer
+from .models import Student, Lecturer
 from django.contrib.auth.admin import UserAdmin
 
 from .models import CustomUser
@@ -10,17 +9,17 @@ from .forms import CustomUserChangeForm, CustomUserCreationForm
 class StudentAdmin(admin.ModelAdmin):
     list_display = ["id", "matric_no", "level", "department"]
 
-# Register your models here.
-# @admin.register(Lecturer)
-# class lectureradmin(admin.ModelAdmin):
-#     list_display = ["full_name", "title", "email","lecID", "passwordd"]
+
+@admin.register(Lecturer)
+class lectureradmin(admin.ModelAdmin):
+    list_display = ["title", "lecID"]
 
 class CustomUserAdmin(UserAdmin):
     add_form = CustomUserCreationForm
     form = CustomUserChangeForm
     model = CustomUser
     list_display = ["email", "full_name", "is_staff", "is_active"]
-
+    
     fieldsets = (
         (None, {"fields": ("email", "password")}),
         ("Permissions", {"fields": ("is_staff", "is_active")}),

@@ -41,8 +41,17 @@ INSTALLED_APPS = [
     'signin',
     'rest_framework',
     'corsheaders',
-    'rest_framework.authtoken'
+    'rest_framework.authtoken',
+    'drf_yasg'
 ]
+
+SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS': {
+        'Basic': {
+            'type': 'basic'
+        }
+    }
+}
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
@@ -130,12 +139,19 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 REST_FRAMEWORK = {
    'DEFAULT_PERMISSION_CLASSES': [
+       'rest_framework.permissions.IsAdminUser',
        'rest_framework.permissions.IsAuthenticated',
    ],
    'DEFAULT_AUTHENTICATION_CLASSES': (
-       'rest_framework.authentication.SessionAuthentication',
        'rest_framework.authentication.TokenAuthentication',
+       'rest_framework.authentication.BasicAuthentication',
+       'rest_framework.authentication.SessionAuthentication',
    )
 }
 
 AUTH_USER_MODEL = 'signup.CustomUser'
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'signin.hashing.HashedPasswordAuthBackend',
+]

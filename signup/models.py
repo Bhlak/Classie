@@ -62,14 +62,21 @@ class Student(models.Model):
 # "type": "student"
 # }
 
+# {
+# "full_name": "Asbe",
+# "email": "hasasa@gmail.com",
+# "password": "1122",
+# "type": "lecturer",
+# "lecID": "2311211123",
+# "title": "Professor"
+# }
 
-# class Lecturer(models.Model):
-#     full_name = models.CharField(max_length=100)
-#     title = models.CharField(max_length=15)
-#     lecID = models.CharField(max_length=10)
-#     email = models.EmailField(unique=True)
-#     passwordd = models.CharField(max_length=100)
+
+class Lecturer(models.Model):
+    user = models.OneToOneField(CustomUser, related_name="lecturer", on_delete=models.CASCADE)
+    title = models.CharField(max_length=15)
+    lecID = models.CharField(max_length=10)
     
-#     def __str__(self):
-#         return self.email
+    # def __str__(self):
+    #     return self.email
     
