@@ -5,6 +5,7 @@ from signup.views import RegisterAPIView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('signup/', include('signup.urls')),
-    path('signin/', include('signin.urls'))
+    path('signin/', include('signin.urls')),
+    path('course_list/', include('course_list.urls')),
     path('lecturersignup/', RegisterAPIView.as_view(), name='lecturersignup')
 ]
