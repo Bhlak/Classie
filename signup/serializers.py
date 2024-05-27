@@ -1,6 +1,35 @@
 from rest_framework import serializers
-from .models import Student, Lecturer
+from .models import CustomUser, Student, Lecturer
 
+
+class CustomUserSerializer(serializers.ModelSerializer):
+    matric_no = serializers.CharField(write_only=True, required=False)
+    level = serializers.CharField(write_only=True, required=False)
+    department = serializers.CharField(write_only=True, required=False)
+    faculty = serializers.CharField(write_only=True, required=False)
+    type = serializers.CharField(write_only=True, required=False)
+    title = serializers.CharField(write_only=True, required=False)
+    lecID = serializers.CharField(write_only=True, required=False)
+
+    class Meta:
+        model = CustomUser
+        fields = "__all__"
+    
+    def create(self, validated):
+        level = validated.pop('level', '')
+        matric_no = validated.pop('matric_no', '')
+        department = validated.pop('department', '')
+        faculty = validated.pop('faculty', '')
+        userType = validated.pop('type', '')
+        lecID = validated.pop('lecID', '')
+        title = validated.pop('title', '')
+        user = CustomUser.objects.create_user(**validated)
+
+        if userType == 'student':
+            Student.objects.create(user=user, level=level, department=department, faculty=faculty, matric_no=matric_no)
+        elif userType == 'lecturer':
+            Lecturer.objects.create(user=user, lecID=lecID, title=title)
+        return user
 
 class StudentSerializer(serializers.ModelSerializer):
     class Meta:

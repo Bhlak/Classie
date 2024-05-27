@@ -1,14 +1,54 @@
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.db import models
+from django.conf import settings
+from django.utils import timezone
+from django.dispatch import receiver
+from django.db.models.signals import post_save
+from rest_framework.authtoken.models import Token
+
+from .managers import CustomUserManager
+
+
+
+class CustomUser(AbstractBaseUser, PermissionsMixin):
+    email = models.EmailField(unique=True)
+    full_name = models.CharField(max_length=30)
+    is_staff = models.BooleanField(default=False)
+    is_superuser = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
+    date_joined = models.DateTimeField(default=timezone.now)
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
+
+    objects = CustomUserManager()
+
+    def __str__(self):
+        return self.email
 
 class Student(models.Model):
-    full_name = models.CharField(max_length=30, null=False, blank=False)
-    email = models.EmailField(null=False, blank=False)
-    password = models.CharField(max_length=90,  null=False, blank=False)
-    matric_no = models.CharField(max_length=10,  null=False, blank=False)
-    faculty = models.CharField(max_length=15,  null=False, blank=False)
-    department = models.CharField(max_length=20,  null=False, blank=False)
-    level = models.IntegerField( null=False, default="heheh", blank=False)
-    user_type = models.CharField(max_length=10, default="student", blank=False)
+    user = models.OneToOneField(CustomUser, related_name='student', on_delete=models.CASCADE)
+    matric_no = models.CharField(max_length=10, unique=True)
+    faculty = models.CharField(max_length=15)
+    department = models.CharField(max_length=20)
+    level = models.IntegerField(default=100)
+
+    # @receiver(post_save, sender=settings.AUTH_USER_MODEL)
+    # def create_student(sender, instance, created, **extras):
+    #     if created:
+    #         stud = Student.objects.create(user=instance)
+    
+    # @receiver(post_save, sender=settings.AUTH_USER_MODEL)
+    # def save_student(sender, instance, **extras):
+    #     instance.student.save()
+
+    # @receiver(post_save, sender=settings.AUTH_USER_MODEL)
+    # def create_auth_token(sender, instance=None, created=False, **kwargs):
+    #     if created:
+    #         Token.objects.create(user=instance)
+
+    # def __str__(self):
+    #     return self.matric_no
 
 
 # {
@@ -19,26 +59,24 @@ class Student(models.Model):
 # "faculty": "Engineering",
 # "department": "Computer Engineering",
 # "level": 200,
-# "user_type": "student"
+# "type": "student"
+# }
+
+# {
+# "full_name": "Asbe",
+# "email": "hasasa@gmail.com",
+# "password": "1122",
+# "type": "lecturer",
+# "lecID": "2311211123",
+# "title": "Professor"
 # }
 
 
 class Lecturer(models.Model):
-    full_name = models.CharField(max_length=100, null=False, blank=False)
-    title = models.CharField(max_length=15, null=False, blank=False)
-    lecID = models.CharField(max_length=10, null=False, blank=False)
-    email = models.EmailField(unique=True, null=False, blank=False)
-    passwordd = models.CharField(max_length=100, null=False, blank=False)
+    user = models.OneToOneField(CustomUser, related_name="lecturer", on_delete=models.CASCADE)
+    title = models.CharField(max_length=15)
+    lecID = models.CharField(max_length=10)
     
-#{
-#"id": 2,
-#"full_name": "Princess .O. Etowe",
-#"title": "Miss",
-#"lecID": "BU1222E",
-#"email": "petowe122@babcock.edu.ng",
-#"password1": "1234",
-#"password2":"1234" 
-#}
+    # def __str__(self):
+    #     return self.email
     
-    def __str__(self):
-        return self.email
