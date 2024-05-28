@@ -8,7 +8,7 @@ class ClistAdmin(admin.ModelAdmin):
 
 @admin.register(Department)
 class DepartmentAdmin(admin.ModelAdmin):
-    list_display = ('name','faculty', 'display_courses')
+    list_display = ('name','dep_code','faculty', 'display_courses')
     search_fields = ('name','faculty')
    
     def display_courses(self, obj):
