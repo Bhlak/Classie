@@ -54,10 +54,10 @@ class SignUpView(APIView):
                 email = data['email']
                 lecID = data['lecID']
 
-                if Lecturer.objects.filter(lecID__exact=lecID).exists():
-                    return Response({'error': 'Leturer ID exists'}, status=status.HTTP_400_BAD_REQUEST)
-                elif CustomUser.objects.filter(email__exact=email).exists():
+                if CustomUser.objects.filter(email__exact=email).exists():
                     return Response({'error': 'Email Taken'}, status=status.HTTP_400_BAD_REQUEST)
+                elif Lecturer.objects.filter(lecID__exact=lecID).exists():
+                    return Response({'error': 'Leturer ID exists'}, status=status.HTTP_400_BAD_REQUEST)
                 else:
 
                     serializer = CustomUserSerializer(data=data)
