@@ -14,7 +14,7 @@ Payload = {
 }
 
 Response: {
-<user entity returned>
+User entity returned
 }
 
 # Signup for a Lecture
@@ -31,7 +31,7 @@ Payload = {
 }
 
 Response: {
-<user entity returned>
+User entity returned
 }
 
 # Login for a User
