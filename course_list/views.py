@@ -17,7 +17,21 @@ class ClistAPIView(APIView):
                       {"course_title":"Bio-mechanics2", "course_code":"BIM522", "year":"5", "faculty":"Faculty of Medical Sciences", "departments" : ["Anatomy", "Physiology"]}
                       ]
         
+        dep_list = [{"name":"Anatomy", "dep_code":"ANY", "faculty": "Faculty of Medical Sciences"},
+                    {"name":"Physiology", "dep_code":"PHYS", "faculty":"Faculty of Medical Sciences"},
+                    {"name":"Information Technology", "dep_code": "COSC", "faculty":"Faculty of Computing and Engineering Sciences"},
+                    {"name":"Software Engineering", "dep_code": "SENG", "faculty":"Faculty of Computing and Engineering Sciences"}]
 
+        department_dict = {}
+        for dep_dict in dep_list:
+            department, created = Department.objects.get_or_create(
+              name=dep_dict["name"],
+              dep_code=dep_dict["dep_code"],
+              faculty=dep_dict["faculty"]
+              )
+            department_dict[dep_dict["name"]] = department
+
+       
         for data_dict in dict_clist:
             course = Clist.objects.create(
               course_title = data_dict["course_title"],
@@ -27,8 +41,8 @@ class ClistAPIView(APIView):
             )
             
             for dep_name in data_dict["departments"]:
-                department, dept_created = Department.objects.get_or_create(name=dep_name)
-                course.departments.add(department)
-            
+                department = department_dict.get(dep_name)
+                if department:
+                    course.departments.add(department)
             
         return Response({"message":"Course created"})

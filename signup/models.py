@@ -80,3 +80,8 @@ class Lecturer(models.Model):
     # def __str__(self):
     #     return self.email
     
+# class Department(models.Model):
+#     dep_name = models.CharField(max_length=100)
+#     dep_code = models.CharField(max_length=100)
+#    faculty = models.CharField(max_length=100)
+    
