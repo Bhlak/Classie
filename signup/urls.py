@@ -3,7 +3,6 @@ from . import views
 from rest_framework import routers
 # from .views import RegisterAPIView
 
-
 router = routers.DefaultRouter()
 
 urlpatterns = router.urls
