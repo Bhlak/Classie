@@ -7,7 +7,7 @@ from .forms import CustomUserChangeForm, CustomUserCreationForm
 
 @admin.register(Student)
 class StudentAdmin(admin.ModelAdmin):
-    list_display = ["id", "matric_no", "year", "department"]
+    list_display = ["id", "matric_no", "year", "department", "class_code"]
 
 
 @admin.register(Lecturer)
