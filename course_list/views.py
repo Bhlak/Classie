@@ -5,16 +5,16 @@ from rest_framework.response import Response
 # Create your views here.
 class ClistAPIView(APIView):
     def get(self, request):
-        dict_clist = [{"course_title":"Introduction to Programming with C", "course_code":"COSC101", "year":"1", "faculty":"Faculty of Computing and Engineering Sciences", "departments" : ["Information Technology", "Software Engineering"]},
-                      {"course_title":"Operating Systems1", "course_code":"COSC203", "year":"2", "faculty":"Faculty of Computing and Engineering Sciences", "departments" : ["Information Technology", "Software Engineering" ]},
-                      {"course_title":"Operating Systems2", "course_code":"COSC303", "year":"3", "faculty":"Faculty of Computing and Engineering Sciences", "departments" : ["Information Technology", "Software Engineering"]},
-                      {"course_title":"Machine Learning", "course_code":"COSC400", "year":"4", "faculty":"Faculty of Computing and Engineering Sciences", "departments" : ["Information Technology", "Software Engineering"]},
-                      {"course_title":"Machine Learning2", "course_code":"COSC500", "year":"5", "faculty":"Faculty of Computing and Engineering Sciences", "departments" : ["Information Technology", "Software Engineering"]},
-                      {"course_title":"Biology1", "course_code":"BIO105", "year":"1", "faculty":"Faculty of Medical Sciences", "departments" : ["Anatomy", "Physiology"]},
-                      {"course_title":"Biology2", "course_code":"BIO205", "year":"2", "faculty":"Faculty of Medical Sciences", "departments" : ["Anatomy", "Physiology"]},
-                      {"course_title":"Physiology", "course_code":"PHG333", "year":"3", "faculty":"Faculty of Medical Sciences", "departments" : ["Anatomy", "Physiology"]},
-                      {"course_title":"Bio-mechanics", "course_code":"BIM422", "year":"4", "faculty":"Faculty of Medical Sciences", "departments" : ["Anatomy", "Physiology"]},
-                      {"course_title":"Bio-mechanics2", "course_code":"BIM522", "year":"5", "faculty":"Faculty of Medical Sciences", "departments" : ["Anatomy", "Physiology"]}
+        dict_clist = [{"course_title":"Introduction to Programming with C", "course_code":"COSC101", "level":"1", "faculty":"Faculty of Computing and Engineering Sciences", "departments" : ["Information Technology", "Software Engineering"]},
+                      {"course_title":"Operating Systems1", "course_code":"COSC203", "level":"200", "faculty":"Faculty of Computing and Engineering Sciences", "departments" : ["Information Technology", "Software Engineering" ]},
+                      {"course_title":"Operating Systems2", "course_code":"COSC303", "level":"300", "faculty":"Faculty of Computing and Engineering Sciences", "departments" : ["Information Technology", "Software Engineering"]},
+                      {"course_title":"Machine Learning", "course_code":"COSC400", "level":"400", "faculty":"Faculty of Computing and Engineering Sciences", "departments" : ["Information Technology", "Software Engineering"]},
+                      {"course_title":"Machine Learning2", "course_code":"COSC500", "level":"500", "faculty":"Faculty of Computing and Engineering Sciences", "departments" : ["Information Technology", "Software Engineering"]},
+                      {"course_title":"Biology1", "course_code":"BIO105", "level":"100", "faculty":"Faculty of Medical Sciences", "departments" : ["Anatomy", "Physiology"]},
+                      {"course_title":"Biology2", "course_code":"BIO205", "level":"200", "faculty":"Faculty of Medical Sciences", "departments" : ["Anatomy", "Physiology"]},
+                      {"course_title":"Physiology", "course_code":"PHG333", "level":"300", "faculty":"Faculty of Medical Sciences", "departments" : ["Anatomy", "Physiology"]},
+                      {"course_title":"Bio-mechanics", "course_code":"BIM422", "level":"400", "faculty":"Faculty of Medical Sciences", "departments" : ["Anatomy", "Physiology"]},
+                      {"course_title":"Bio-mechanics2", "course_code":"BIM522", "level":"500", "faculty":"Faculty of Medical Sciences", "departments" : ["Anatomy", "Physiology"]}
                       ]
         
         dep_list = [{"name":"Anatomy", "dep_code":"ANY", "faculty": "Faculty of Medical Sciences"},
@@ -36,7 +36,7 @@ class ClistAPIView(APIView):
             course = Clist.objects.create(
               course_title = data_dict["course_title"],
               course_code = data_dict["course_code"],
-              year = data_dict["year"],
+              level = data_dict["level"],
               faculty = data_dict["faculty"]
             )
             

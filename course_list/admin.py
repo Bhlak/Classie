@@ -3,7 +3,7 @@ from .models import Clist, Department
 # Register your models here.
 @admin.register(Clist)
 class ClistAdmin(admin.ModelAdmin):
-    list_display = ('year', 'course_title', 'course_code','faculty')
+    list_display = ('level', 'course_title', 'course_code','faculty')
     search_fields = ('course_title', 'course_code')
 
 @admin.register(Department)
