@@ -42,8 +42,7 @@ INSTALLED_APPS = [
     'course_list',
     'rest_framework',
     'corsheaders',
-    'rest_framework.authtoken',
-    'course_list'
+    'rest_framework.authtoken'
 ]
 
 SWAGGER_SETTINGS = {
