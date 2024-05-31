@@ -33,7 +33,6 @@ class Student(models.Model):
     department = models.CharField(max_length=20)
     year = models.IntegerField(default=1)
     is_courseRep = models.BooleanField(default=False)
-    class_code = models.CharField(max_length=20, blank=True)
 
     # @receiver(post_save, sender=settings.AUTH_USER_MODEL)
     # def create_student(sender, instance, created, **extras):
@@ -57,7 +56,7 @@ class Student(models.Model):
 # "full_name": "Abe",
 # "email": "first@gmail.com",
 # "password": "1111",
-# "matric_no": "19/SENG01",
+# "matric_no": "22/SENG01",
 # "faculty": "Faculty of Computing and Engineering Sciences",
 # "department": "Software Engineering",
 # "year": 2,

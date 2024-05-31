@@ -2,7 +2,8 @@ from rest_framework import serializers
 from .models import CustomUser, Student, Lecturer
 from course_list.models import Department
 from datetime import datetime
-import random
+from classes.views import ClassAPI
+import requests
 
 
 class CustomUserSerializer(serializers.ModelSerializer):
@@ -20,7 +21,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
     
     def create(self, validated):
         year = validated.pop('year', '')
-        matric_no = validated.pop('matric_no', '')
+        matric_no = validated.pop('matric_no', '')  
         department = validated.pop('department', '')
         faculty = validated.pop('faculty', '')
         userType = validated.pop('type', '')
@@ -33,14 +34,15 @@ class CustomUserSerializer(serializers.ModelSerializer):
                 student = Student.objects.create(user=user, year=year, department=department, faculty=faculty, matric_no=matric_no)
             except Exception as e:
                 print(f"Exception E: {e}")
-            temp = self.class_checks(student, year, department, matric_no)
-            student.class_code = temp
-            student.save()
+
+            self.class_checks(year, department, matric_no)
+            # student.class_code = temp
+            # student.save()
         elif userType == 'lecturer':
             Lecturer.objects.create(user=user, lecID=lecID, title=title)
         return user
     
-    def class_checks(self, student, year, department, matric_no):
+    def class_checks(self, year, department, matric_no):
         current_year = datetime.now().year
         matric_year  = int('20' + matric_no[:2])
         matric_code = matric_no[3:7]
@@ -48,11 +50,12 @@ class CustomUserSerializer(serializers.ModelSerializer):
         dep_code = self.dep_codefetch(department)
 
         if int(current_year) - int(matric_year) == int(year) and matric_code == dep_code:
-            random1 = random.randint(1000, 9999)
-            random2 = random.randint(10, 99)
-            class_code = f'{random1}{dep_code}{random2}0{year}'
+            class_code = f'{dep_code}0{year}'
 
-            return class_code
+
+            requests.post('http://127.0.0.1:8000/classes/create/', data={
+                'code': class_code
+            })
 
     def dep_codefetch(self, dep):
         department = Department.objects.get(name__exact=dep)

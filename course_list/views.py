@@ -2,8 +2,11 @@ from django.shortcuts import render
 from .models import Clist, Department
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.permissions import AllowAny
+
 # Create your views here.
 class ClistAPIView(APIView):
+    permission_classes = (AllowAny,)
     def get(self, request):
         dict_clist = [{"course_title":"Introduction to Programming with C", "course_code":"COSC101", "level":"1", "faculty":"Faculty of Computing and Engineering Sciences", "departments" : ["Information Technology", "Software Engineering"]},
                       {"course_title":"Operating Systems1", "course_code":"COSC203", "level":"200", "faculty":"Faculty of Computing and Engineering Sciences", "departments" : ["Information Technology", "Software Engineering" ]},
