@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from .models import CustomUser, Student, Lecturer
 from datetime import datetime
-
+from course_list.models import Clist
 
 class CustomUserSerializer(serializers.ModelSerializer):
     matric_no = serializers.CharField(write_only=True, required=False)
@@ -31,7 +31,10 @@ class CustomUserSerializer(serializers.ModelSerializer):
                 student = Student.objects.create(user=user, year=year, department=department, faculty=faculty, matric_no=matric_no)
             except Exception as e:
                 print(f"Exception E: {e}")
-            self.class_checks(student, year, department, matric_no)
+            clist, created = Clist.objects.get_or_create(departments=department, year=year)
+            clist.student_count += 1
+            clist.save()
+            # self.class_checks(student, year, department, matric_no)
         elif userType == 'lecturer':
             Lecturer.objects.create(user=user, lecID=lecID, title=title)
         return user

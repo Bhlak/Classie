@@ -33,6 +33,8 @@ class Student(models.Model):
     department = models.CharField(max_length=20)
     year = models.IntegerField(default=1)
     is_verified = models.BooleanField(default=False)
+    
+
 
     # @receiver(post_save, sender=settings.AUTH_USER_MODEL)
     # def create_student(sender, instance, created, **extras):
@@ -86,3 +88,13 @@ class Lecturer(models.Model):
 #     dep_code = models.CharField(max_length=100)
 #    faculty = models.CharField(max_length=100)
     
+#{
+#"full_name": "Abe",
+#"email": "fourth@gmail.com",
+#"password": "3333",
+#"matric_no": "22/SENG04",
+#"faculty": "Faculty of Computing and Engineering Sciences",
+#"department": "Software Engineering",
+#"year": 2,
+#"type": "student"
+#}

@@ -6,10 +6,10 @@ Payload = {
 "full_name": "Abe",
 "email": "second@gmail.com",
 "password": "2222",
-"matric_no": "1902",
-"faculty": "Engineering",
-"department": "Computer Engineering",
-"year": 2,
+"matric_no": "19/SENG02",
+"faculty": "Faculty of Computing and Engineering Sciences",
+"department": "Software Engineering",
+"year": 200,
 "type": "student"
 }
 
