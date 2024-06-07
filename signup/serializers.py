@@ -4,6 +4,7 @@ from course_list.models import Department
 from datetime import datetime
 from classes.views import ClassAPI
 import requests
+import json
 
 
 class CustomUserSerializer(serializers.ModelSerializer):
@@ -53,9 +54,16 @@ class CustomUserSerializer(serializers.ModelSerializer):
             class_code = f'{dep_code}0{year}'
 
 
-            requests.post('http://127.0.0.1:8000/classes/create/', data={
+            res = requests.post('http://127.0.0.1:8000/classes/create/', data={
                 'code': class_code
             })
+
+            if res:
+                data = res.json()
+                temp = data['Class']['courses']
+                
+                # print(res.json())
+
 
     def dep_codefetch(self, dep):
         department = Department.objects.get(name__exact=dep)

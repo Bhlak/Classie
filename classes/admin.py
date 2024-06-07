@@ -2,10 +2,11 @@ from django.contrib import admin
 from .models import Classes
 
 @admin.register(Classes)
-class ClistAdmin(admin.ModelAdmin):
-    list_display = ('code',)
-    # , 'courses'
+class ClassAdmin(admin.ModelAdmin):
+    model = Classes
+    list_display = ('code', 'display_courses')
     search_fields = ('code', )
 
-    # def courses(self):
-    #     return ', '.join()
+
+    def display_courses(self, obj):
+        return ", ".join(course.course_title for course in obj.courses.all())
