@@ -1,7 +1,7 @@
 from django.contrib import admin
 from .models import Student, Lecturer
 from django.contrib.auth.admin import UserAdmin
-
+from course_list.models import Clist
 from .models import CustomUser
 from .forms import CustomUserChangeForm, CustomUserCreationForm
 
