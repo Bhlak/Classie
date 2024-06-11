@@ -28,6 +28,9 @@ class ClistAPIView(APIView):
                       {"course_title":"Physiology", "course_code":"PHG333", "year":"3", "faculty":"Faculty of Medical Sciences", "departments" : "Anatomy", "dep_code": "ANAT"},
                       {"course_title":"Bio-mechanics", "course_code":"BIM422", "year":"4", "faculty":"Faculty of Medical Sciences", "departments" :"Physiology", "dep_code": "PHYS"},
                       {"course_title":"Bio-mechanics2", "course_code":"BIM522", "year":"5", "faculty":"Faculty of Medical Sciences", "departments" : "Anatomy", "dep_code": "ANAT"}
+                      {"course_title":"Bio-mechanics3", "course_code":"BIM520", "year":"5", "faculty":"Faculty of Medical Sciences", "departments" :"Physiology", "dep_code": "PHYS"},
+                      {"course_title":"Bio-mechanics3", "course_code":"BIM520", "year":"5", "faculty":"Faculty of Medical Sciences", "departments" : "Anatomy", "dep_code": "ANAT"},
+                      {"course_title":"Bio-mechanics3", "course_code":"BIM520", "year":"5", "faculty":"Faculty of Medical Sciences", "departments" : "Anatomy", "dep_code": "ANAT"}
                       ]
         
         dep_list = [{"dep_name":"Anatomy", "dep_code":"ANAT", "faculty": "Faculty of Medical Sciences"},
