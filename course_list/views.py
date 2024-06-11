@@ -57,6 +57,7 @@ class ClistAPIView(APIView):
                       {"course_title":"Bio-mechanics2", "course_code":"BIM522", "year":"5", "faculty":"Faculty of Medical Sciences", "departments" :"Physiology", "dep_code": "PHYS"},
                       {"course_title":"Bio-mechanics2", "course_code":"BIM522", "year":"5", "faculty":"Faculty of Medical Sciences", "departments" : "Anatomy", "dep_code": "ANAT"}
                       {"course_title":"Bio-mechanics3", "course_code":"BIM520", "year":"5", "faculty":"Faculty of Medical Sciences", "departments" :"Physiology", "dep_code": "PHYS"},
+                      {"course_title":"Bio-mechanics3", "course_code":"BIM520", "year":"5", "faculty":"Faculty of Medical Sciences", "departments" : "Anatomy", "dep_code": "ANAT"},
                       {"course_title":"Bio-mechanics3", "course_code":"BIM520", "year":"5", "faculty":"Faculty of Medical Sciences", "departments" : "Anatomy", "dep_code": "ANAT"}
                       ]
         
