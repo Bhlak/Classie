@@ -1,7 +1,9 @@
 from rest_framework import serializers
 from .models import CustomUser, Student, Lecturer
+from course_list.models import Department
 from datetime import datetime
-from course_list.models import Clist
+from classes.models import Classes
+import requests
 
 class CustomUserSerializer(serializers.ModelSerializer):
     matric_no = serializers.CharField(write_only=True, required=False)
@@ -18,7 +20,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
     
     def create(self, validated):
         year = validated.pop('year', '')
-        matric_no = validated.pop('matric_no', '')
+        matric_no = validated.pop('matric_no', '')  
         department = validated.pop('department', '')
         faculty = validated.pop('faculty', '')
         userType = validated.pop('type', '')
@@ -31,26 +33,45 @@ class CustomUserSerializer(serializers.ModelSerializer):
                 student = Student.objects.create(user=user, year=year, department=department, faculty=faculty, matric_no=matric_no)
             except Exception as e:
                 print(f"Exception E: {e}")
-            clist, created = Clist.objects.get_or_create(departments=department, year=year)
-            clist.student_count += 1
-            clist.save()
-            # self.class_checks(student, year, department, matric_no)
+            # clist, created = Clist.objects.get_or_create(departments=department, year=year)
+            # clist.student_count += 1
+            # clist.save()
+            # student,
+            code = self.class_checks( year, department, matric_no)
+            student.class_code = code
+            the_class = Classes.objects.get(code__exact=code)
+            the_class.increase_counts()
+            student.save()
+
         elif userType == 'lecturer':
             Lecturer.objects.create(user=user, lecID=lecID, title=title)
         return user
     
-    def class_checks(self, student, year, department, matric_no):
+    def class_checks(self, year, department, matric_no):
         current_year = datetime.now().year
         matric_year  = int('20' + matric_no[:2])
+        matric_code = matric_no[3:7]
 
-        dep = self.dep_code_fetch()
-        
-        if current_year - matric_year == year and department == dep:
-            pass
+        dep_code = self.dep_codefetch(department)
 
-    def dep_fetch(self, dep_code):
-        dep = 'placeholder'
-        return dep
+        if int(current_year) - int(matric_year) == int(year) and matric_code == dep_code:
+            class_code = f'{dep_code}0{year}'
+
+
+            res = requests.post('http://127.0.0.1:8000/classes/create/', data={
+                'code': class_code
+            })
+
+            if res:
+                data = res.json()
+                temp = data['code']
+                
+                return temp
+
+
+    def dep_codefetch(self, dep):
+        department = Department.objects.get(dep_name__exact=dep)
+        return department.dep_code
 
 class StudentSerializer(serializers.ModelSerializer):
     class Meta:
