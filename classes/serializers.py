@@ -18,18 +18,15 @@ class ClassSerializer(serializers.ModelSerializer):
         
         the_class = Classes.objects.create(code=code)
 
-        department = Department.objects.get(dep_code__exact=dep_code)
+        # department = Department.objects.get(dep_code__exact=dep_code)
         
-        courses = department.courses.all()
+        
+        courses = Clist.objects.filter(dep_code__exact=dep_code, year=year)
 
         for course in courses:
-            if course.level == int(year):
+            if course.year == int(year):
                 the_class.courses.add(course)
+                the_class.save()
 
-        # print(courses)
-
-        # course = Clist.objects.filter(level=year, departments=dep_name)
-        # print(course)
-        # courses = Clist.objects.filter()
 
         return the_class

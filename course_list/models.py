@@ -23,6 +23,12 @@ class Clist(models.Model):
     year = models.IntegerField()
     departments = models.CharField(max_length = 100)
     student_count = models.IntegerField(default=0)
-    
-    def __str__(self):
-        return self.course_title
+    dep_code = models.CharField(max_length=100)
+
+class Department(models.Model):
+    dep_name = models.CharField(max_length=200)
+    dep_code = models.CharField(max_length=100)
+    faculty = models.CharField(max_length=100)
+
+    # def __str__(self):
+    #     return self.course_title

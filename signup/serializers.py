@@ -2,7 +2,8 @@ from rest_framework import serializers
 from .models import CustomUser, Student, Lecturer
 from course_list.models import Department
 from datetime import datetime
-from course_list.models import Clist
+from classes.models import Classes
+import requests
 
 class CustomUserSerializer(serializers.ModelSerializer):
     matric_no = serializers.CharField(write_only=True, required=False)
@@ -32,10 +33,16 @@ class CustomUserSerializer(serializers.ModelSerializer):
                 student = Student.objects.create(user=user, year=year, department=department, faculty=faculty, matric_no=matric_no)
             except Exception as e:
                 print(f"Exception E: {e}")
-            clist, created = Clist.objects.get_or_create(departments=department, year=year)
-            clist.student_count += 1
-            clist.save()
-            # self.class_checks(student, year, department, matric_no)
+            # clist, created = Clist.objects.get_or_create(departments=department, year=year)
+            # clist.student_count += 1
+            # clist.save()
+            # student,
+            code = self.class_checks( year, department, matric_no)
+            student.class_code = code
+            the_class = Classes.objects.get(code__exact=code)
+            the_class.increase_counts()
+            student.save()
+
         elif userType == 'lecturer':
             Lecturer.objects.create(user=user, lecID=lecID, title=title)
         return user
@@ -57,13 +64,13 @@ class CustomUserSerializer(serializers.ModelSerializer):
 
             if res:
                 data = res.json()
-                temp = data['Class']['courses']
+                temp = data['code']
                 
-                # print(res.json())
+                return temp
 
 
     def dep_codefetch(self, dep):
-        department = Department.objects.get(name__exact=dep)
+        department = Department.objects.get(dep_name__exact=dep)
         return department.dep_code
 
 class StudentSerializer(serializers.ModelSerializer):

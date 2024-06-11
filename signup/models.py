@@ -31,7 +31,8 @@ class Student(models.Model):
     matric_no = models.CharField(max_length=10, unique=True)
     faculty = models.CharField(max_length=15)
     department = models.CharField(max_length=20)
-    year = models.IntegerField(default=1)
+    year = models.IntegerField()
+    class_code = models.CharField(max_length=7)
     is_verified = models.BooleanField(default=False)
     is_courseRep = models.BooleanField(default=False)
 
