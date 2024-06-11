@@ -21,16 +21,12 @@ class ClistAPIView(APIView):
                       {"course_title":"Biology1", "course_code":"BIO105", "year":"1", "faculty":"Faculty of Medical Sciences", "departments" : "Anatomy", "dep_code": "ANAT"},
                       {"course_title":"Biology2", "course_code":"BIO205", "year":"2", "faculty":"Faculty of Medical Sciences", "departments" : "Physiology", "dep_code": "PHYS"},
                       {"course_title":"Physiology", "course_code":"PHG333", "year":"3", "faculty":"Faculty of Medical Sciences", "departments" : "Physiology", "dep_code": "PHYS"},
-<<<<<<< HEAD
-                      {"course_title":"Bio-mechanics", "course_code":"BIM422", "year":"4", "faculty":"Faculty of Medical Sciences", "departments" : "Anatomy", "dep_code": "ANAT"},
-=======
                       {"course_title":"Human Anatomy", "course_code":"PHG313", "year":"3", "faculty":"Faculty of Medical Sciences", "departments" : "Anatomy", "dep_code": "ANAT"},
                       {"course_title":"Human Anatomy", "course_code":"PHG313", "year":"3", "faculty":"Faculty of Medical Sciences", "departments" : "Physiology", "dep_code": "PHYS"},
                       {"course_title":"Bio-mechanics", "course_code":"BIM422", "year":"4", "faculty":"Faculty of Medical Sciences", "departments" : "Anatomy", "dep_code": "ANAT"},
                       {"course_title":"Physiology2", "course_code":"PHG432", "year":"4", "faculty":"Faculty of Medical Sciences", "departments" : "Anatomy", "dep_code": "ANAT"},
                       {"course_title":"Bio-mechanics", "course_code":"BIM422", "year":"4", "faculty":"Faculty of Medical Sciences", "departments" :"Physiology", "dep_code": "PHYS"},
                       {"course_title":"Physiology2", "course_code":"PHG432", "year":"4", "faculty":"Faculty of Medical Sciences", "departments" :"Physiology", "dep_code": "PHYS"},
->>>>>>> 55a93fe9a4623761572fb8d0f1b17dfb5f61b066
                       {"course_title":"Bio-mechanics2", "course_code":"BIM522", "year":"5", "faculty":"Faculty of Medical Sciences", "departments" :"Physiology", "dep_code": "PHYS"},
                       {"course_title":"Biology1", "course_code":"BIO105", "year":"1", "faculty":"Faculty of Medical Sciences", "departments" : "Anatomy",  "dep_code": "ANAT"},
                       {"course_title":"Biology2", "course_code":"BIO205", "year":"2", "faculty":"Faculty of Medical Sciences", "departments" : "Physiology",  "dep_code": "PHYS"},
@@ -73,3 +69,4 @@ class ClistAPIView(APIView):
             #         course.departments.add(department)
             
         return Response({"message":"Course created"})
+    
