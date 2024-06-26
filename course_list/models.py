@@ -1,5 +1,4 @@
 from django.db import models
-from signup.models import Student
 
 # class Department(models.Model):
 #     name = models.CharField(max_length=100)

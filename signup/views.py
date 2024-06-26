@@ -5,8 +5,10 @@ from .serializers import StudentSerializer, CustomUserSerializer, LecturerSerial
 from rest_framework.response import Response
 from django.contrib.auth.hashers import make_password
 from rest_framework.permissions import AllowAny, IsAdminUser
+from course_list.models import Clist
 
 
+# View to register a user - student or lecturer
 class SignUpView(APIView):
     permission_classes = (AllowAny,)
 
@@ -76,6 +78,27 @@ class SignUpView(APIView):
     #         print(f"Error encountered: {e}")
     #         return None
     #     return hashed_pwd
+
+
+# Views for courses a lecturer is teaching
+class LecturerCourseView(APIView):
+    permission_classes = ( AllowAny, )
+
+    def post(self, request, format=None):
+        try:
+            data = request.data
+
+            department = data['department']
+            course_code = data['course']
+
+            # course = Clist.objects.filter()
+
+
+        
+        except Exception as e:
+            return Response({"message": e}, status=status.HTTP_400_BAD_REQUEST)
+
+
 
 # # class RegisterAPIView(APIView):
 # #     def post(self,request, *args, **kwargs):

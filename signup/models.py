@@ -7,7 +7,7 @@ from django.db.models.signals import post_save
 from rest_framework.authtoken.models import Token
 
 from .managers import CustomUserManager
-
+from course_list.models import Clist
 
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
@@ -79,6 +79,7 @@ class Lecturer(models.Model):
     user = models.OneToOneField(CustomUser, related_name="lecturer", on_delete=models.CASCADE)
     title = models.CharField(max_length=15)
     lecID = models.CharField(max_length=10)
+    courses = models.ManyToManyField(Clist)
     
     # def __str__(self):
     #     return self.email
