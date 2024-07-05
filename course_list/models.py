@@ -19,6 +19,7 @@ class Clist(models.Model):
     # student_count_3 = models.IntegerField(default=0)
     # student_count_4 = models.IntegerField(default=0)
     # student_count_5 = models.IntegerField(default=0)
+    #lecture
     faculty = models.CharField(max_length=50)
     year = models.IntegerField()
     departments = models.CharField(max_length = 100)

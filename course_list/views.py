@@ -53,7 +53,7 @@ class ClistAPIView(APIView):
                       {"course_title":"Bio-mechanics", "course_code":"BIM422", "year":"4", "faculty":"Faculty of Medical Sciences", "departments" :"Physiology", "dep_code": "PHYS"},
                       {"course_title":"Physiology2", "course_code":"PHG432", "year":"4", "faculty":"Faculty of Medical Sciences", "departments" :"Physiology", "dep_code": "PHYS"},
                       {"course_title":"Bio-mechanics2", "course_code":"BIM522", "year":"5", "faculty":"Faculty of Medical Sciences", "departments" :"Physiology", "dep_code": "PHYS"},
-                      {"course_title":"Bio-mechanics2", "course_code":"BIM522", "year":"5", "faculty":"Faculty of Medical Sciences", "departments" : "Anatomy", "dep_code": "ANAT"}
+                      {"course_title":"Bio-mechanics2", "course_code":"BIM522", "year":"5", "faculty":"Faculty of Medical Sciences", "departments" : "Anatomy", "dep_code": "ANAT"},
                       {"course_title":"Bio-mechanics3", "course_code":"BIM520", "year":"5", "faculty":"Faculty of Medical Sciences", "departments" :"Physiology", "dep_code": "PHYS"},
                       {"course_title":"Bio-mechanics3", "course_code":"BIM520", "year":"5", "faculty":"Faculty of Medical Sciences", "departments" : "Anatomy", "dep_code": "ANAT"}
                       ]
@@ -88,5 +88,14 @@ class ClistAPIView(APIView):
             #     department = department_dict.get(dep_name)
             #     if department:
             #         course.departments.add(department)
-            
         return Response({"message":"Course created"})
+      
+class CodeAPIView(APIView):
+  def get(self, request, course_code):
+    courses = Clist.objects.filter(course_code=course_code)
+    count = 0
+    for course in courses:
+      count += course.student_count
+    print(count)
+    return Response(f"Course code is {course_code}")
+  
