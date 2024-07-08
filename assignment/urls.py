@@ -7,5 +7,6 @@ router = routers.DefaultRouter()
 urlpatterns = router.urls
 
 urlpatterns += [
-    path('assignment/', views.assignmentAPI.as_view())
+    path('assignment/', views.assignmentAPI.as_view()),
+    path('submission/', views.submissionAPI.as_view())
 ]
