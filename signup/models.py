@@ -81,8 +81,8 @@ class Lecturer(models.Model):
     lecID = models.CharField(max_length=10)
     courses = models.ManyToManyField(Clist)
     
-    # def __str__(self):
-    #     return self.email
+    def __str__(self):
+        return self.lecID
     
 # class Department(models.Model):
 #     dep_name = models.CharField(max_length=100)

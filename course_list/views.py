@@ -1,8 +1,10 @@
 from django.shortcuts import render
 from .models import Clist, Department
+from signup.models import Lecturer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
+from rest_framework import status
 
 # Create your views here.
 class ClistAPIView(APIView):
@@ -90,3 +92,33 @@ class ClistAPIView(APIView):
             #         course.departments.add(department)
             
         return Response({"message":"Course created"})
+    
+
+class LecturerCourseAPIView(APIView):
+    permission_classes = ( AllowAny, )
+
+    # def get(self, request, format=None):
+        
+    #     data = request.data
+
+    def post(self, request, format=None):
+        data = request.data
+
+        lecid = data['lecid']
+
+        faculty = data['faculty']
+        department = data['department']
+        course_code = data['course']
+
+        course = Clist.objects.get(departments__exact=department, course_code__exact=course_code)
+
+        lecturer = Lecturer.objects.get(lecID__exact=lecid)
+        lecturer.courses.add(course)
+        lecturer.save()
+
+
+        return Response({"message": f"{course}"}, status=status.HTTP_200_OK)
+
+
+
+
