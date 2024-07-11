@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .models import Clist, Department
+from .serializers import DepartmentSerializer, CourseSerializer
 from signup.models import Lecturer
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -97,9 +98,18 @@ class ClistAPIView(APIView):
 class LecturerCourseAPIView(APIView):
     permission_classes = ( AllowAny, )
 
-    # def get(self, request, format=None):
+    def get(self, request, format=None):
         
-    #     data = request.data
+        dep = Department.objects.all()
+
+        queryset = DepartmentSerializer(dep, many=True)
+
+        temp = queryset.data
+
+        faculties = list(set([x['faculty'] for x in temp]))
+        departments = list(set([x['dep_name'] for x in temp]))
+
+        return Response({"Faculties": faculties, "Departments": departments}, status=status.HTTP_200_OK)
 
     def post(self, request, format=None):
         data = request.data
@@ -109,6 +119,10 @@ class LecturerCourseAPIView(APIView):
         faculty = data['faculty']
         department = data['department']
         course_code = data['course']
+        venue = data["venue"]
+        day = data["day"]
+        period = data["period"]
+        description = data["description"]
 
         course = Clist.objects.get(departments__exact=department, course_code__exact=course_code)
 
@@ -120,5 +134,30 @@ class LecturerCourseAPIView(APIView):
         return Response({"message": f"{course}"}, status=status.HTTP_200_OK)
 
 
+class LecturerSupplementAPIView(APIView):
+    permission_classes = ( AllowAny, )
+
+    def post(self,request, format=None):
+        data = request.data
+        
+        department = data['department']
+
+        course = Clist.objects.filter(departments__exact=department)
+
+        serializer = CourseSerializer(course, many=True)
+
+        temp = serializer.data
+
+        courselist = [x['course_code'] for x in temp]
+
+        return Response(courselist, status=status.HTTP_200_OK)
+
+
+# class TimetableAPIView(APIView):
+#     permission_classes = ( AllowAny, )
+#     def post(self, request, format=None):
+#         data = request.data
+
+        
 
 

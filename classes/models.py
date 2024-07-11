@@ -1,5 +1,5 @@
 from django.db import models
-from course_list.models import Clist
+from courses.models import Clist
 
 class Classes(models.Model):
     code = models.CharField(max_length=12, blank=False)

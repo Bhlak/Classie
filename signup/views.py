@@ -5,7 +5,7 @@ from .serializers import StudentSerializer, CustomUserSerializer, LecturerSerial
 from rest_framework.response import Response
 from django.contrib.auth.hashers import make_password
 from rest_framework.permissions import AllowAny, IsAdminUser
-from course_list.models import Clist
+from courses.models import Clist
 
 
 # View to register a user - student or lecturer

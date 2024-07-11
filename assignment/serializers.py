@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import Assignment,Submission
-from course_list.models import Clist
+from courses.models import Clist
 
 class AssignmentSerializer(serializers.ModelSerializer):
     question = serializers.CharField(required=True)

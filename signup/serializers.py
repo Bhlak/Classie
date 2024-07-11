@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import CustomUser, Student, Lecturer
-from course_list.models import Department
+from courses.models import Department
 from datetime import datetime
 from classes.models import Classes
 import requests

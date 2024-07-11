@@ -1,5 +1,5 @@
 from django.db import models
-from course_list.models import Clist
+from courses.models import Clist
 
 class Assignment(models.Model):
     question = models.TextField()

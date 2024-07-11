@@ -7,7 +7,7 @@ from django.db.models.signals import post_save
 from rest_framework.authtoken.models import Token
 
 from .managers import CustomUserManager
-from course_list.models import Clist
+from courses.models import Clist
 
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
@@ -89,13 +89,13 @@ class Lecturer(models.Model):
 #     dep_code = models.CharField(max_length=100)
 #    faculty = models.CharField(max_length=100)
     
-#{
-#"full_name": "Abe",
-#"email": "fourth@gmail.com",
-#"password": "3333",
-#"matric_no": "22/SENG04",
-#"faculty": "Faculty of Computing and Engineering Sciences",
-#"department": "Software Engineering",
-#"year": 2,
-#"type": "student"
-#}
+# {
+# "full_name": "Abe",
+# "email": "fourth@gmail.com",
+# "password": "3333",
+# "matric_no": "22/SENG04",
+# "faculty": "Faculty of Computing and Engineering Sciences",
+# "department": "Software Engineering",
+# "year": 2,
+# "type": "student"
+# }

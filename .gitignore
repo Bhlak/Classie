@@ -1,4 +1,4 @@
 __pycache__/
 *.pdf
 migrations/
-db.sqlite3
+*.sqlite3

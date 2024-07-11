@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import Classes
-from course_list.models import Clist, Department
+from courses.models import Clist, Department
 
 class ClassSerializer(serializers.ModelSerializer):
     code = serializers.CharField()
