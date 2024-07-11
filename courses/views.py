@@ -91,7 +91,6 @@ class ClistAPIView(APIView):
             #     department = department_dict.get(dep_name)
             #     if department:
             #         course.departments.add(department)
-<<<<<<< HEAD:courses/views.py
             
         return Response({"message":"Course created"})
     
@@ -162,7 +161,6 @@ class LecturerSupplementAPIView(APIView):
         
 
 
-=======
         return Response({"message":"Course created"})
       
 class CodeAPIView(APIView):
@@ -174,4 +172,3 @@ class CodeAPIView(APIView):
     print(count)
     return Response(f"Course code is {course_code}")
   
->>>>>>> rhumeh:course_list/views.py

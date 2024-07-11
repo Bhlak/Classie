@@ -70,7 +70,7 @@ class Student(models.Model):
 # "email": "hasasa@gmail.com",
 # "password": "1122",
 # "type": "lecturer",
-# "lecID": "2311211123",
+# "lecID": "001",
 # "title": "Professor"
 # }
 
