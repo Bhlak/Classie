@@ -1,0 +1,5 @@
+djangorestframework
+django-cors-headers
+gunicorn==21.2.0
+dj-database-url
+requests
