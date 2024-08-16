@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from .models import Announcements, Comments
-from course_list.models import Clist
-from course_list.serializer import ClistSerializer
+from courses.models import Clist
+from courses.serializer import ClistSerializer
 
 class AnnouncementsSerializer(serializers.ModelSerializer):
     code = ClistSerializer(many=True)

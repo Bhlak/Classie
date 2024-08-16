@@ -20,7 +20,7 @@ class SignUpView(APIView):
     
     def post(self, request, format=None):
         try:
-            data = request.data
+            data = request.data 
 
             if data['type'] == "student":
 

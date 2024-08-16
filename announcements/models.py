@@ -1,5 +1,5 @@
 from django.db import models
-from course_list.models import Clist
+from courses.models import Clist
 from signup.models import Student
 # Create your models here.
 class Announcements(models.Model):

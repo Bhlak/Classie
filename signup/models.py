@@ -22,6 +22,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = []
 
     objects = CustomUserManager()
+    # @receiver(post_save, sender=settings.AUTH_USER_MODEL)
 
     def __str__(self):
         return self.email

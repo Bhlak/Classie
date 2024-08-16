@@ -67,6 +67,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+CORS_ORIGIN_ALLOW_ALL = True
+
 ROOT_URLCONF = 'Classie.urls'
 
 TEMPLATES = [
@@ -153,8 +155,3 @@ REST_FRAMEWORK = {
 }
 
 AUTH_USER_MODEL = 'signup.CustomUser'
-
-AUTHENTICATION_BACKENDS = [
-    'django.contrib.auth.backends.ModelBackend',
-    'signin.hashing.HashedPasswordAuthBackend',
-]
