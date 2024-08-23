@@ -48,8 +48,8 @@ Installation
 
 Configuration
 
-. Database: Configure the database in `settings.py` as needed.
-. Authentication: Customize authentication classes as required.
+- Database: Configure the database in `settings.py` as needed.
+- Authentication: Customize authentication classes as required.
 
 
 
